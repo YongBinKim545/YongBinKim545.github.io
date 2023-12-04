@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # Local Fonts
 # *.ttf
+
+# build files
+tsconfig.tsbuildinfo

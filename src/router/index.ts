@@ -1,5 +1,9 @@
 // Composables
-import { createRouter, createWebHistory } from 'vue-router'
+
+// history mode
+// import { createRouter, createWebHistory } from 'vue-router'
+// hash mode for github page
+import { createRouter, createWebHashHistory } from 'vue-router'
 import ManageLayout from '@/layouts/default/Intro.vue'
 const routes = [
   {
@@ -82,9 +86,15 @@ const routes = [
     component: () => import('@/layouts/default/NotFound.vue'),
   }
 ]
+// History Mode
+// const router = createRouter({
+//   history: createWebHistory(process.env.BASE_URL),
+//   routes,
+// })
 
+// Hash Mode for github page
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(process.env.BASE_URL),
   routes,
 })
 
