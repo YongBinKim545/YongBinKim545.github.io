@@ -1,15 +1,16 @@
 <template>
     <v-navigation-drawer v-bind:value="drawer" floating width="300">
         <template v-slot:prepend>
-            <v-toolbar color="success" v-show="mobile">
+            <!-- for mobile only -->
+            <!-- <v-toolbar color="success" v-show="mobile">
                 <template v-slot:prepend>
                     <span>Mobile Header(현장 Selector)</span>
                 </template>
                 <template v-slot:append>
                     <v-btn icon="mdi-window-close" @click.stop="toggleDrawer"></v-btn>
                 </template>
-            </v-toolbar>
-            <v-card class="pa-2 ma-2 text-center" height="240" v-show="!mobile">
+            </v-toolbar> -->
+            <v-card class="pa-2 ma-2 text-center">
                 <div class="d-flex justify-space-around">
                     <v-card class="d-flex flex-column" flat>
                         <v-tooltip location="right">
@@ -60,15 +61,17 @@
                         <div class="text-caption">email-address@dnocm.co.kr</div>
                     </div>
                 </div>
-                <v-divider class="mt-3" />
-                <v-card-subtitle class="d-flex justify-start mt-3">권한그룹</v-card-subtitle>
-                <div class="d-flex justify-space-between">
-                    <v-chip variant="flat" class="text-caption ma-2">CM 현장</v-chip>
-                    <v-chip variant="flat" class="text-caption ma-2">ADMIN</v-chip>
+                <div v-show="!mobile">
+                    <v-divider class="mt-3" />
+                    <v-card-subtitle class="d-flex justify-start mt-3">권한그룹</v-card-subtitle>
+                    <div class="d-flex justify-space-between">
+                        <v-chip variant="flat" class="text-caption ma-2">CM 현장</v-chip>
+                        <v-chip variant="flat" class="text-caption ma-2">ADMIN</v-chip>
+                    </div>
                 </div>
             </v-card>
         </template>
-        <v-card class="pa-2 ma-2 overflow-y-auto" max-height="90%" :flat="mobile">
+        <v-card class="pa-2 ma-2 overflow-y-auto" max-height="90%">
             <v-list variant="flat">
                 <menu-lists :items="nodes" :depth="0" />
             </v-list>
