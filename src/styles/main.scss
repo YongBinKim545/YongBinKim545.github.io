@@ -1,0 +1,49 @@
+@use 'vuetify' with ($body-font-family: 'LGSmHa'
+);
+
+@font-face {
+  font-family: 'LGSmHa';
+  src: url('@/assets/fonts/LGSmHaL_v1.4_151215.ttf') format('truetype');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'LGSmHa';
+  src: url('@/assets/fonts/LGSmHaR_v1.4_151215.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'LGSmHa';
+  src: url('@/assets/fonts/LGSmHaSB_v1.4_151215.ttf') format('truetype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'LGSmHa';
+  src: url('@/assets/fonts/LGSmHaB_v1.4_151215.ttf') format('truetype');
+  font-weight: 700;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 4px #FAFAFA;
+  border-radius: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #E1F5FE;
+  border-radius: 4px;
+}
+
+/* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #1867C0;
+  }
