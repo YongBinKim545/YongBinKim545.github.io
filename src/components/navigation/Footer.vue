@@ -1,5 +1,5 @@
 <template>
-    <v-footer app width="100%">
+    <v-footer app width="100%" style="background-color: transparent;">
         <!-- <v-container v-show="!fab" fluid>
             <v-toolbar density="compact">
                 <v-list-item>D&O CM</v-list-item>

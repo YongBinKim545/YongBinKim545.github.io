@@ -1,9 +1,9 @@
 <template>
     <div>
-        <item-header trueOption="Baseline" falseOption="Actual" :contentsItem=props.contentItem></item-header>
+        <item-header trueOption="Base" falseOption="Actual" :contentsItem=props.contentItem></item-header>
         <div class="ma-2">
             <v-card class="my-2" flat>
-                Table 삽입
+                공정표 업로드 (Base, Actual 선택에 따라 Baseline, Actual 공정표 업로드 및 조회)
             </v-card>
         </div>
     </div>

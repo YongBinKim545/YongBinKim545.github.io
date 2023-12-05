@@ -15,10 +15,10 @@ import { contentStore } from '@/store/project/default'
 import { useRoute } from 'vue-router'
 
 const Timeline = defineAsyncComponent(() => import('@/layouts/project/Timeline.vue'))
-const TodoStatic = defineAsyncComponent(() => import('@/layouts/project/TodoStatic.vue'))
-const ToDo = defineAsyncComponent(() => import('@/layouts/project/ToDo.vue'))
-const InProgress = defineAsyncComponent(() => import('@/layouts/project/InProgress.vue'))
-const Done = defineAsyncComponent(() => import('@/layouts/project/Done.vue'))
+const TodoStatic = defineAsyncComponent(() => import('@/layouts/project/quality/TodoStatic.vue'))
+const ToDo = defineAsyncComponent(() => import('@/layouts/project/quality/ToDo.vue'))
+const InProgress = defineAsyncComponent(() => import('@/layouts/project/quality/InProgress.vue'))
+const Done = defineAsyncComponent(() => import('@/layouts/project/quality/Done.vue'))
 
 const components = [
     General,

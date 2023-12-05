@@ -29,7 +29,7 @@ import TableOfContents from '@/components/TableOfContents.vue'
 // import { contentStore, ContentsItem } from '@/store/project/default'
 // import { ref, Ref, computed } from 'vue'
 // import { useRoute } from 'vue-router'
-import { contentStore } from '@/store/project/default'
+// import { contentStore } from '@/store/project/default'
 import { ref } from 'vue'
 
 
@@ -37,7 +37,7 @@ import { ref } from 'vue'
 // const currentRouteName = computed(() => {
 //     return route.name as string
 // })
-const store = contentStore()
+// const store = contentStore()
 // const showGeneral: Ref<ContentsItem> = computed(() => store.contentGeneral)
 const drawer = ref()
 

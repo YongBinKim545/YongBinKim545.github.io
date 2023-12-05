@@ -21,7 +21,7 @@ const routes = [
   {
     path: '/headoffice',
     name:'HeadOffice',
-    component: () => import(/* webpackChunkName: "headoffice" */'@/layouts/default/HeadOfficeDefault.vue'),
+    component: () => import(/* webpackChunkName: "headoffice" */'@/layouts/headoffice/HeadOfficeDefault.vue'),
     children: [
       {
         path: '',
@@ -52,7 +52,7 @@ const routes = [
   {
     path: '/project',
     name:'Project',
-    component: () => import(/* webpackChunkName: "project" */ '@/layouts/default/ProjectDefault.vue'),
+    component: () => import(/* webpackChunkName: "project" */ '@/layouts/project/ProjectDefault.vue'),
     children: [
       {
         path: '',

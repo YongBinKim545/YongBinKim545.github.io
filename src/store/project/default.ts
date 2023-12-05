@@ -50,19 +50,19 @@ export const contentStore = defineStore('contentStore', () => {
         ProjectHome: [
             {
                 index:0,
-                name:'projectlist',
-                title:'my projects',
+                name:'projectList',
+                title:'My Projects',
                 visible:true
             },
             {
                 index:1,
-                name:'projectlist',
+                name:'qualityStatus',
                 title:'품질관리 현황',
                 visible:false
             },
             {
                 index:2,
-                name:'projectlist',
+                name:'scheduleStatus',
                 title:'공정관리 현황',
                 visible:false
             },
@@ -132,6 +132,12 @@ export const contentStore = defineStore('contentStore', () => {
             },
             {
                 index: 4,
+                name: 'taskstatus',
+                title: 'TaskStatus',
+                visible: false
+            },
+            {
+                index: 5,
                 name: 'gantt',
                 title: 'GANTT',
                 visible: false

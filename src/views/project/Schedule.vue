@@ -15,15 +15,17 @@ import { contentStore } from '@/store/project/default'
 import { useRoute } from 'vue-router'
 
 const Timeline = defineAsyncComponent(() => import('@/layouts/project/Timeline.vue'))
-const ScheduleManagement = defineAsyncComponent(() => import('@/layouts/project/ScheduleManagement.vue'))
-const ProgressCurve = defineAsyncComponent(() => import('@/layouts/project/ProgressCurve.vue'))
-const Gantt  = defineAsyncComponent(() => import('@/layouts/project/Gantt.vue'))
+const ScheduleManagement = defineAsyncComponent(() => import('@/layouts/project/schedule/ScheduleManagement.vue'))
+const ProgressCurve = defineAsyncComponent(() => import('@/layouts/project/schedule/ProgressCurve.vue'))
+const TaskStatus = defineAsyncComponent(() => import('@/layouts/project/schedule/TaskStatus.vue'))
+const Gantt  = defineAsyncComponent(() => import('@/layouts/project/schedule/Gantt.vue'))
 
 const components = [
     General,
     Timeline,
     ScheduleManagement,
     ProgressCurve,
+    TaskStatus,
     Gantt,
 ]
 const route = useRoute()
