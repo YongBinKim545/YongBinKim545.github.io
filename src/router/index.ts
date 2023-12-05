@@ -7,7 +7,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import ManageLayout from '@/layouts/default/Intro.vue'
 const routes = [
   {
-    path: '/',
+    path: '',
     name:'Home',
     component: ManageLayout,
     children:[
@@ -21,7 +21,7 @@ const routes = [
   {
     path: '/headoffice',
     name:'HeadOffice',
-    component: () => import(/* webpackChunkName: "headoffice" */'@/layouts/headoffice/HeadOfficeDefault.vue'),
+    component: () => import(/* webpackChunkName: "headoffice" */'@/layouts/default/Default.vue'),
     children: [
       {
         path: '',
@@ -52,7 +52,7 @@ const routes = [
   {
     path: '/project',
     name:'Project',
-    component: () => import(/* webpackChunkName: "project" */ '@/layouts/project/ProjectDefault.vue'),
+    component: () => import(/* webpackChunkName: "project" */ '@/layouts/default/Default.vue'),
     children: [
       {
         path: '',

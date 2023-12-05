@@ -7,7 +7,7 @@
             <MenuLists :items="item.children" :depth="depth + 1" />
         </v-list-group>
         <v-list-item v-else :class="depth > 0 ? 'mb-2' : 'mb-4'" :title="item.text" :value="item.text"
-            :to="item.link" color="primary" rounded="lg" :exact="true" :style="{'padding-left':20+20*depth+'px'+'!important'}">
+            :to="item.link" color="primary" rounded="lg" exact :style="{'padding-left':20+20*depth+'px'+'!important'}">
             <template v-slot:prepend v-if="item.icon">
                 <v-icon :icon="item.icon"></v-icon>
             </template>

@@ -1,8 +1,8 @@
 <template>
-    <v-card class="mx-2">
+    <v-card class="mx-2 mt-5">
         <v-toolbar>
             <template v-slot:prepend>
-                <v-card :width="100" variant="text" class="text-center">{{ props.contentsItem.title }}</v-card>
+                <v-card variant="text" class="text-center">{{ props.contentsItem.title }}</v-card>
                 <v-divider class="ml-3" vertical inset />
             </template>
             <v-menu v-model="menu" :close-on-content-click="false" transition="scale-transition">
@@ -23,7 +23,8 @@
                             </template>
                         </v-list-item>
                         <v-divider />
-                        <div class="column_wrapper">
+                        <!-- flex setting as below is malfunctioning on iphone, ipad and macbook has not been tested -->
+                        <v-card class="d-flex flex-column flex-wrap" flat max-height="200">
                             <v-list-item v-for="item in items" :value="item" @click="toggleItem(item)">
                                 <template v-slot:prepend>
                                     <v-checkbox-btn :model-value="selected.includes(item)"></v-checkbox-btn>
@@ -32,7 +33,7 @@
                                     <span>{{ item }}</span>
                                 </template>
                             </v-list-item>
-                        </div>
+                        </v-card>
                     </v-list>
                 </v-card>
             </v-menu>
@@ -98,9 +99,5 @@ onMounted(() => {
 
 </script>
 <style scoped>
-.column_wrapper {
-    max-height: 200px;
-    display: flex;
-    flex-flow: column wrap;
-}
+
 </style>

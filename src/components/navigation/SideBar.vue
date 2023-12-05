@@ -1,7 +1,7 @@
 <template>
     <v-navigation-drawer v-bind:value="drawer" floating width="300">
         <template v-slot:prepend>
-            <!-- for mobile only -->
+            <!-- for mobile navbar header -->
             <!-- <v-toolbar color="success" v-show="mobile">
                 <template v-slot:prepend>
                     <span>Mobile Header(현장 Selector)</span>
@@ -105,26 +105,26 @@ import { useRoute } from 'vue-router';
 defineProps({
     drawer: Boolean,
 })
-const emit = defineEmits(['toggleDrawer'])
-const toggleDrawer = (): void => {
-    emit('toggleDrawer')
-}
+// if mobile navbar header is applied, following codes are for close btn of mobile header
+// const emit = defineEmits(['toggleDrawer'])
+// const toggleDrawer = (): void => {
+//     emit('toggleDrawer')
+// }
 const { mobile } = useDisplay()
 const route = useRoute()
 const menus = sidebarStore()
 const path = route.path.split('/')[1]
 const nodes = computed(() => menus.getMenus(path))
-
 </script>
 
 <style lang="scss" scoped>
 .avatar-background {
-    background: linear-gradient(0deg, #1867c0, #ffffff 50%);
-    animation: rotateCircle 20s linear infinite;
+    background: linear-gradient(0deg, #1867c0, #ffffff 30%);
+    animation: rotateCircle 10s linear infinite;
 }
 
 .avatar-image {
-    animation: rotateCircle 20s linear infinite reverse;
+    animation: rotateCircle 10s linear infinite reverse;
 }
 
 @keyframes rotateCircle {

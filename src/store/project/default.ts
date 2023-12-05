@@ -39,13 +39,15 @@ export const categoryForItemStore = defineStore('categoryForItemStore', () => {
 
 //this is using @/layouts/ItemHeader.vue to initiate filter items
 export const contentStore = defineStore('contentStore', () => {
-    // Not used. this is for common item
-    const contentGeneralData = {
-        index:0,
-        name:'general',
-        title:'GENERAL',
-        visible:true
-    }
+    // Not used. if it needed to 
+    // const contentGeneralData = {
+    //     index:0,
+    //     name:'general',
+    //     title:'GENERAL',
+    //     visible:true
+    // }
+    // router name is using as a key value of contentData, and get menu items of each page such as Home, Quality, and Schedule
+    // if headoffice page added, contentData shall be updated
     const contentData = {
         ProjectHome: [
             {
@@ -145,21 +147,21 @@ export const contentStore = defineStore('contentStore', () => {
         ],
     };
     const contentForRoute:Ref<ContentStoreState> = ref(contentData)
-    const contentGeneral:Ref<ContentsItem> = ref(contentGeneralData)
+    // const contentGeneral:Ref<ContentsItem> = ref(contentGeneralData)
     const getContentList = (routeName: string): ContentsItem[] => {
         return contentForRoute.value[routeName];
     };
     function setContent(routeName: string, index: number): void {
         contentForRoute.value[routeName][index]['visible'] = !contentForRoute.value[routeName][index]['visible']
     }
-    function toggleGeneralContent():void {
-        contentGeneral.value['visible'] = !contentGeneral.value['visible']
-    }
+    // function toggleGeneralContent():void {
+    //     contentGeneral.value['visible'] = !contentGeneral.value['visible']
+    // }
     return {
         contentForRoute,
         getContentList,
         setContent,
-        contentGeneral,
-        toggleGeneralContent
+        // contentGeneral,
+        // toggleGeneralContent
     }
 })
