@@ -2,9 +2,7 @@
     <div style="height: 100%;" class="my-2">
         <v-data-table-virtual :headers="appliedHeader" :items="data" style="height: 90%;"
             fixed-header hover multi-sort @click:row="clicked">
-            <!-- Body까지 Custom하면 vuetify 쓸필요 없는 것 같음. 기본 기능 거의 사용 못하고 새로 구현 해야 함 (제일 귀찮았던거는 click event 및 hovering 효과 구현)
-            모바일에서도 검색창이 전체 Data에 대해 동작하기 위해 Items를 Computed로 Filter해서 넣었음 (vuetify 제공 search나 Filter기능 쓰지 않음)
-            -->
+            <!-- 향후 Body Custom 필요 있음. 그러면 기본 기능 별도 구현필요 (click event, hovering 등)-->
             <template v-slot:headers="{ columns, getSortIcon, toggleSort, isSorted, sortBy }">
                 <tr>
                     <template v-for="column in columns" :key="column.key">
@@ -53,6 +51,7 @@ watch(mobile, (newMobile) => {
     // { immediate: true }
 )
 
+//vuetify 내장 serach 기능은 모바일에서 Header를 줄이면, 보이지 않는 헤더 관련 내용은 검색이 안되서 Filter 함수 별도 구현
 function filterData(searchInput: string | undefined) {
     const searchKeyword = searchInput?.toLowerCase();
     if (!searchKeyword) return props.data;
@@ -60,7 +59,6 @@ function filterData(searchInput: string | undefined) {
         for (const key in item) {
             if (Object.prototype.hasOwnProperty.call(item, key)) {
                 const searchableValue = String(item[key as keyof DataT]).toLowerCase();
-
                 if (searchableValue.includes(searchKeyword)) {
                     return true;
                 }
@@ -85,7 +83,4 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.v-data-table-header {
-    justify-content: 'center';
-}
 </style>

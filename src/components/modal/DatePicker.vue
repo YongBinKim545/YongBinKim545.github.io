@@ -22,14 +22,14 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-input[type='date']::-webkit-calendar-picker-indicator {
-  position: absolute; // 이를 설정하기 위해 사전에 relative를 설정한 것이다.
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: transparent; // 배경은 투명하게,
-  color: transparent; // 글자도 투명하게! 이 두 설정을 통해 캘린더 아이콘을 사라지게 만든다.
-  cursor: pointer;
-}
+// input[type='date']::-webkit-calendar-picker-indicator {
+//   position: absolute; // 이를 설정하기 위해 사전에 relative를 설정한 것이다.
+//   left: 0;
+//   top: 0;
+//   width: 100%;
+//   height: 100%;
+//   background: transparent; // 배경은 투명하게,
+//   color: transparent; // 글자도 투명하게! 이 두 설정을 통해 캘린더 아이콘을 사라지게 만든다.
+//   cursor: pointer;
+// }
 </style>
