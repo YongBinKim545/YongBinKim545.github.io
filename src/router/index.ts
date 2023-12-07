@@ -4,17 +4,17 @@
 // import { createRouter, createWebHistory } from 'vue-router'
 // hash mode for github page
 import { createRouter, createWebHashHistory } from 'vue-router'
-import ManageLayout from '@/layouts/default/Intro.vue'
+import PublicPage from '@/layouts/default/PublicPage.vue'
 const routes = [
   {
     path: '',
     name:'Home',
-    component: ManageLayout,
+    component: PublicPage,
     children:[
       {
         path: '',
-        name: 'Intro',
-        component: () => import(/* webpackChunkName: "intro" */'@/views/Home.vue'),
+        name: 'Public',
+        component: () => import(/* webpackChunkName: "intro" */'@/views/Entry.vue'),
       },
     ]
   },

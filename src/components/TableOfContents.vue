@@ -1,6 +1,6 @@
 <template>
     <!-- <v-app-bar flat extended> -->
-    <v-container class="px-5 d-flex flex-wrap" :class="flexType" fluid>
+    <v-card class="mx-6 mt-2 d-flex flex-wrap" :class="flexType" fluid :flat="mobile ? true:false">
         <!-- 프로젝트 전체 공통 Item 필요 시 -->
         <!-- <v-btn class="ma-1" @click="toggleItem(contentGeneral)" flat v-show="currentRouteName != 'ProjectHome'">
             <template v-slot:prepend>
@@ -10,18 +10,18 @@
                 <span>{{ contentGeneral.title }}</span>
             </template>
         </v-btn> -->
-        <template v-for="content in contentsItems">
-            <v-btn class="ma-1" @click="toggleItem(content)" flat>
-                <template v-slot:prepend>
-                    <v-icon :color="content.visible ? 'primary' : 'grey'">mdi-check-circle</v-icon>
-                </template>
-                <template v-slot:default>
-                    <span>{{ content.title }}</span>
-                </template>
-            </v-btn>
-        </template>
-        <v-divider />
-    </v-container>
+            <template v-for="content in contentsItems">
+                <v-btn class="ma-1" @click="toggleItem(content)" flat>
+                    <template v-slot:prepend>
+                        <v-icon :color="content.visible ? 'primary' : 'grey'">mdi-check-circle</v-icon>
+                    </template>
+                    <template v-slot:default>
+                        <span>{{ content.title }}</span>
+                    </template>
+                </v-btn>
+            </template>
+        <v-divider v-show="mobile" />
+    </v-card>
     <!-- </v-app-bar> -->
 </template>
 
@@ -31,6 +31,7 @@ import { useDisplay } from 'vuetify'
 import { contentStore, ContentsItem } from '@/store/project/default'
 import { useRoute } from 'vue-router'
 
+const {mobile} = useDisplay()
 const route = useRoute()
 const currentRouteName = computed(() => {
     return route.name as string
@@ -73,6 +74,4 @@ function toggleItem(content: ContentsItem): void {
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

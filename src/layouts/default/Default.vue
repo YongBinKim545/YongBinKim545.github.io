@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <side-bar v-model="drawer" @toggle-drawer="drawer = !drawer" />
-    <top-bar @toggle-drawer="drawer = !drawer" />
+    <top-bar :drawer = "drawer" @toggle-drawer="drawer = !drawer" />
+    <side-bar v-model="drawer" />
     <v-main>
       <table-of-contents />
-      <!-- 일반항목 별도로 구현하는 파트 -->
+      <!-- if general component shows -->
       <!-- <v-scroll-x-transition>
         <keep-alive>
           <div v-show="showGeneral.visible&&currentRouteName != 'ProjectHome' ">
