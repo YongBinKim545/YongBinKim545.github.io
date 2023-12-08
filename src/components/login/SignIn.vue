@@ -1,10 +1,10 @@
 <template>
   <div>
-    <v-form @submit.prevent="login" class="ma-2 pa-2">
-      <v-text-field v-model="username" density="compact" variant="outlined" outlined rounded hide-details
+    <div class="ma-2 pa-2">
+      <v-text-field v-model="userID" density="compact" variant="outlined" outlined rounded hide-details
         append-inner-icon="mdi-account">
         <template v-slot:label>
-          <span class="text-body-2">User Name</span>
+          <span class="text-body-2">User ID</span>
         </template>
       </v-text-field>
       <v-text-field v-model="password" density="compact" variant="outlined" outlined rounded hide-details
@@ -23,36 +23,27 @@
         <v-card-subtitle class="text-caption mt-4" color="primary">Forget Password ?</v-card-subtitle>
       </div>
       <v-btn type="submit" color="primary" block>Login</v-btn>
-    </v-form>
-    <br />
-    <v-card color="surface" class="mx-4 pa-2">
-      <v-card-subtitle class="mt-2">Social Login</v-card-subtitle>
-      <v-card-actions class="justify-center">
-        <v-btn icon>
-          <v-icon size="x-large">mdi-facebook</v-icon>
-        </v-btn>
-        <v-btn icon>
-          <v-icon size="large">mdi-google</v-icon>
-        </v-btn>
-        <v-btn icon>
-          <v-icon size="x-large">mdi-apple</v-icon>
-        </v-btn>
-      </v-card-actions>
-    </v-card>
+    </div>
+    <v-divider class="my-5" />
+    <v-card-subtitle>SSO (Single Sign On)</v-card-subtitle>
+    <br/>
+    <div class="d-flex justify-space-between mx-4 my-2">
+      <v-btn width="100" color="success">MY LGID</v-btn>
+      <v-btn width="100" color="warning">DNO</v-btn>
+    </div>
   </div>
-  <small class="ma-2 pa-2">Login 계정에 따라 본사/현장 Redirect</small>
 </template>
 
 <script lang="ts" setup>
 import { ref, Ref } from 'vue';
 
-const username: Ref<undefined | null | string> = ref();
+const userID: Ref<undefined | null | string> = ref();
 const password: Ref<undefined | null | string> = ref();
 const showPassword = ref(false)
 
 const login = () => {
   // Implement your login logic here
-  console.log('Logging in with:', username.value, password.value);
+  console.log('Logging in with:', userID.value, password.value);
 };
 
 const socialLogin = (provider: string) => {

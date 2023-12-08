@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useDisplay } from 'vuetify'
+import { useDisplay} from 'vuetify'
 
 const { mobile } = useDisplay()
 const emit = defineEmits(['toggleDrawer'])
@@ -49,7 +49,6 @@ defineProps({
 const toggleDrawer = (): void => {
     emit('toggleDrawer')
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -58,34 +57,35 @@ const toggleDrawer = (): void => {
     border-radius: 100%;
     cursor: pointer;
     overflow: hidden;
-
     span {
         display: block;
-        width: 18px;
-        height: 2px;
+        width: 20px;
+        height: 3px;
         margin: 4px;
-        background-color: black;
+        // background-color: rgba(var(--v-theme-primary),0.7);
+        background-color: rgba(0,0,0,0.6);
         transition: 0.7s;
     }
 
     &.active {
         span:first-child {
-            transform: translateY(6px) rotate(135deg);
+            transform: translateY(7px) rotate(135deg);
             transition-delay: 0.2s;
         }
 
         span:nth-child(2) {
-            transform: translate(25px, 0);
+            transform: translate(50px, 0);
+            opacity:0;
         }
 
         span:last-child {
-            transform: translateY(-6px) rotate(-135deg);
+            transform: translateY(-7px) rotate(-135deg);
             transition-delay: 0.2s;
         }
     }
 
-    &:hover {
-        background-color: #EEEEEE;
-    }
+    // &:hover {
+    //     background-color: #EEEEEE;
+    // }
 }
 </style>
