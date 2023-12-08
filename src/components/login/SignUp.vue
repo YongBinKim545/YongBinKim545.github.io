@@ -1,31 +1,31 @@
 <template>
     <div>
         <div class="ma-2 pa-2">
-            <v-text-field v-model="userID" density="compact" variant="outlined" outlined rounded
+            <v-text-field v-model="userID" @focus="actionFocus" density="compact" variant="outlined" outlined rounded
                 append-inner-icon="mdi-account">
                 <template v-slot:label>
                     <span class="text-body-2">ID</span>
                 </template>
             </v-text-field>
-            <v-text-field v-model="email" density="compact" variant="outlined" outlined rounded
+            <v-text-field v-model="email" @focus="actionFocus" density="compact" variant="outlined" outlined rounded
                 placeholder="name@domain.com" type="email" append-inner-icon="mdi-email-outline">
                 <template v-slot:label>
                     <span class="text-body-2">Email</span>
                 </template>
             </v-text-field>
-            <v-text-field v-model="mobile" density="compact" variant="outlined" outlined rounded
+            <v-text-field v-model="mobile" @focus="actionFocus" density="compact" variant="outlined" outlined rounded
                 append-inner-icon="mdi-cellphone">
                 <template v-slot:label>
                     <span class="text-body-2">Mobile</span>
                 </template>
             </v-text-field>
-            <v-text-field v-model="projectCode" density="compact" variant="outlined" outlined rounded hint="CM단에 문의하세요"
-                append-inner-icon="mdi-numeric">
+            <v-text-field v-model="projectCode" @focus="actionFocus" density="compact" variant="outlined" outlined rounded
+                hint="CM단에 문의하세요" append-inner-icon="mdi-numeric">
                 <template v-slot:label>
                     <span class="text-body-2">Project Code</span>
                 </template>
             </v-text-field>
-            <v-text-field v-model="password" density="compact" variant="outlined" outlined rounded
+            <v-text-field v-model="password" @focus="actionFocus" density="compact" variant="outlined" outlined rounded
                 hint="6~10자리, 대소문자, 숫자, 특수문자 포함" :type="showPassword ? 'text' : 'password'"
                 :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                 @click:append-inner="showPassword = !showPassword">
@@ -33,7 +33,7 @@
                     <span class="text-body-2">Password</span>
                 </template>
             </v-text-field>
-            <br/>
+            <br />
             <div class="d-flex justify-space-between">
                 <v-btn type="submit" color="success" width="100">Validate</v-btn> <!--성공 시 success color임 -->
                 <v-btn type="submit" color="primary" width="100">submit</v-btn>
@@ -56,7 +56,7 @@ const showPassword = ref(false)
 interface UserFormData {
     type: string,
     title: string,
-    icon?:string,
+    icon?: string,
     validate: boolean,
     hint: string | null,
     value: string | null
@@ -99,6 +99,14 @@ const formData: UserFormData[] = reactive([
     }
 ])
 
+function actionFocus(event: Event) {
+    const targetElement = event.target as HTMLElement
+    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
+    targetElement.classList.add('active-element');
+    console.log(targetElement)
+}
+
 </script>
   
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
