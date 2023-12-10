@@ -1,31 +1,14 @@
 <template>
-    <v-footer app width="100%" style="background-color: transparent;">
-        <!-- <v-container v-show="!fab" fluid>
-            <v-toolbar density="compact">
-                <v-list-item>D&O CM</v-list-item>
-            </v-toolbar>
-        </v-container> -->
-        <v-spacer />
-        <v-btn v-scroll="onScroll" v-show="fab" color="primary" @click="toTop" icon="mdi-chevron-up">
-        </v-btn>
+    <v-footer app>
+        <v-card width="100%" height="35" class="my-2 mx-2 d-flex justify-space-between align-center">
+            <span>Company Name</span>
+            <v-spacer />
+            <span>License / Privacy Policy / Cookie Policy</span>
+            <v-spacer />
+            <span>Contact Us</span>
+        </v-card>
     </v-footer>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-const fab = ref(false)
-function onScroll(e: Event) {
-    if (typeof window === 'undefined') return
-    const top = window.scrollY
-    fab.value = top > 20
-}
-
-function toTop() {
-    window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'smooth'
-    })
-}
-
 </script>

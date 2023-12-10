@@ -1,5 +1,5 @@
 <template>
-    <v-app-bar flat>
+    <v-app-bar flat :order="mobile ? -1 : 0">
         <label for="nav-icon">
             <div class="nav-icon-box ml-5" :class="drawer && mobile ? 'active' : ''">
                 <span></span>
@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useDisplay} from 'vuetify'
+import { useDisplay } from 'vuetify'
 
 const { mobile } = useDisplay()
 const emit = defineEmits(['toggleDrawer'])
@@ -57,13 +57,14 @@ const toggleDrawer = (): void => {
     border-radius: 100%;
     cursor: pointer;
     overflow: hidden;
+
     span {
         display: block;
         width: 20px;
         height: 3px;
         margin: 4px;
         // background-color: rgba(var(--v-theme-primary),0.7);
-        background-color: rgba(0,0,0,0.6);
+        background-color: rgba(0, 0, 0, 0.6);
         transition: 0.7s;
     }
 
@@ -75,7 +76,7 @@ const toggleDrawer = (): void => {
 
         span:nth-child(2) {
             transform: translate(50px, 0);
-            opacity:0;
+            opacity: 0;
         }
 
         span:last-child {

@@ -6,6 +6,7 @@ import '@/styles/main.scss'
 
 // Composables
 import { createVuetify } from 'vuetify'
+// import { md3 } from 'vuetify/blueprints'
 
 const myCustomLightTheme = {
   dark: false,
@@ -40,7 +41,7 @@ const myCustomLightTheme = {
 
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
-
+  // blueprint:md3,
   theme: {
     defaultTheme: 'myCustomLightTheme',
     themes: {
