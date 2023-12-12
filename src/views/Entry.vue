@@ -90,11 +90,11 @@ const activeTabPosition = computed(() => ({
     }
 
     40% {
-        transform: translate(100px, 1px) rotate(1deg);
+        transform: translate(100px, 0) rotate(1deg);
         opacity: 0.4
     }
     70% {
-        transform: translate(0, -1px) rotate(-1deg);
+        transform: translate(0, 0) rotate(-1deg);
         opacity: 0.7
     }
     85% {
@@ -131,11 +131,11 @@ const activeTabPosition = computed(() => ({
     }
 
     40% {
-        transform: translate(-100px, 1px) rotate(-1deg);
+        transform: translate(-100px, 0) rotate(-1deg);
         opacity: 0.4
     }
     70% {
-        transform: translate(0px, -1px) rotate(1deg);
+        transform: translate(0px, 0) rotate(1deg);
         opacity: 0.7
     }
     85% {

@@ -1,30 +1,32 @@
 <template>
-  <v-card flat width="300">
+  <v-card flat width="300" height="400">
     <div class="mx-6 my-4">
-      <!-- User ID -->
-      <v-text-field v-model="userID" density="compact" variant="outlined" outlined rounded append-inner-icon="mdi-account"
-        label="User ID" class="my-2">
-      </v-text-field>
+      <v-form @submit.prevent>
+        <!-- User ID -->
+        <v-text-field v-model="userID" density="compact" variant="outlined" outlined rounded
+          append-inner-icon="mdi-account" label="User ID" class="my-2">
+        </v-text-field>
 
-      <!-- Password -->
-      <v-text-field v-model="password" density="compact" variant="outlined" outlined rounded hide-details
-        :type="showPassword ? 'text' : 'password'" :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-        class="my-2" @click:append-inner="showPassword = !showPassword" label="Password">
-      </v-text-field>
+        <!-- Password -->
+        <v-text-field v-model="password" density="compact" variant="outlined" outlined rounded hide-details
+          :type="showPassword ? 'text' : 'password'" :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          class="my-2" @click:append-inner="showPassword = !showPassword" label="Password">
+        </v-text-field>
 
-      <!-- Remember Me and Forget Password -->
-      <div class="d-flex justify-space-between">
-        <v-checkbox class="align-self-center" density="compact" hide-details>
-          <template v-slot:label>
-            <span class="text-caption">Remember Me</span>
-          </template>
-        </v-checkbox>
-        <!-- <v-card-subtitle class="text-caption align-self-center">Forget ID ?</v-card-subtitle> -->
-        <v-card-subtitle class="text-caption align-self-center">Forget Password ?</v-card-subtitle>
-      </div>
+        <!-- Remember Me and Forget Password -->
+        <div class="d-flex justify-space-between">
+          <v-checkbox class="align-self-center" density="compact" hide-details>
+            <template v-slot:label>
+              <span class="text-caption">Remember Me</span>
+            </template>
+          </v-checkbox>
+          <!-- <v-card-subtitle class="text-caption align-self-center">Forget ID ?</v-card-subtitle> -->
+          <v-card-subtitle class="text-caption align-self-center">Forget Password ?</v-card-subtitle>
+        </div>
 
-      <!-- Login Button -->
-      <v-btn type="submit" color="primary" block @click="login" class="my-5">Login</v-btn>
+        <!-- Login Button -->
+        <v-btn type="submit" color="primary" block @click="login" class="my-5">Login</v-btn>
+      </v-form>
     </div>
 
     <!-- Custom Divider -->

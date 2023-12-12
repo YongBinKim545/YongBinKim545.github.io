@@ -2,7 +2,7 @@
     <div class="mx-4">
         <v-scroll-x-transition v-for="(component, index) in components" leave-absolute>
             <keep-alive>
-                <component :is="component" v-if="contentsItems[index]['visible']" :contentItem="contentsItems[index]" />
+                <component :is="component" v-if="contentsItems[index]['visible']" />
             </keep-alive>
         </v-scroll-x-transition>
     </div>

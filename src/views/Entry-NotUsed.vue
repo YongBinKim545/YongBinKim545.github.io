@@ -20,7 +20,7 @@
 import SignIn from '@/components/login/SignIn.vue'
 import { ref, computed, defineAsyncComponent } from 'vue'
 
-const SignUp = defineAsyncComponent(() => import('@/components/login/SignUp.vue'))
+const SignUp = defineAsyncComponent(() => import('@/components/login/SignUp-NotUsed.vue'))
 const isSignIn = ref(true)
 const activeItemPosition = computed(() => {
   if (isSignIn.value) {

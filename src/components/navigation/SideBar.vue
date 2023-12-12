@@ -3,12 +3,12 @@
         <template v-slot:prepend>
             <user-info />
         </template>
-        <v-card class="pa-2 ma-2 overflow-y-auto" max-height="90%">
+        <v-card class="pa-2 ma-2 overflow-y-auto" max-height="95%">
             <v-list variant="flat">
                 <menu-lists :items="nodes" :depth="0" />
             </v-list>
         </v-card>
-        <template v-slot:append>
+        <!-- <template v-slot:append>
             <div class="ma-4">
                 <v-btn prepend-icon="mdi-cog-outline" block>
                     <template v-slot:append>
@@ -16,7 +16,7 @@
                     </template>
                 </v-btn>
             </div>
-        </template>
+        </template> -->
     </v-navigation-drawer>
 </template>
 
