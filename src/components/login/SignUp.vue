@@ -5,13 +5,14 @@
                 <v-carousel v-model="currentSlide" hide-delimiter-background :show-arrows="false" hide-delimiters
                     height="100%">
                     <v-carousel-item :value="1">
-                        <v-text-field v-model="signUpFormData.userName" :rules="[v => !!v || 'Name is required']"
-                            @focus="handleFocus" @blur="handleBlur" @keyup.enter="handleKeyUp" density="compact"
-                            variant="outlined" rounded append-inner-icon="mdi-account" label="Name" class="my-2" id="1">
+                        <v-text-field v-model="signUpFormData.userName" :rules="nameRules" @focus="handleFocus"
+                            @blur="handleBlur" @keyup.enter="handleKeyUp" density="compact" variant="outlined" rounded
+                            append-inner-icon="mdi-account" label="Name" class="my-2" id="1">
                         </v-text-field>
-                        <v-text-field v-model="signUpFormData.userMobile" @focus="handleFocus" @blur="handleBlur"
-                            @keyup.enter="handleKeyUp" @input="formatMobileNumber" density="compact" variant="outlined"
-                            rounded hint="숫자만 입력하세요" append-inner-icon="mdi-cellphone" label="Mobile" class="my-2" id="2">
+                        <v-text-field v-model="signUpFormData.userMobile" :rules="mobileRules" @focus="handleFocus"
+                            @blur="handleBlur" @keyup.enter="handleKeyUp" @input="formatMobileNumber" density="compact"
+                            variant="outlined" rounded hint="숫자만 입력하세요" append-inner-icon="mdi-cellphone" label="Mobile"
+                            class="my-2" id="2">
                         </v-text-field>
                         <v-text-field v-model="signUpFormData.userEmail" :rules="emailRules" @focus="handleFocus"
                             @blur="handleBlur" @keyup.enter="handleKeyUp" density="compact" variant="outlined" rounded
@@ -23,23 +24,23 @@
                             @blur="handleBlur" @keyup.enter="handleKeyUp" density="compact" variant="outlined" rounded
                             append-inner-icon="mdi-account" label="ID" class="my-2" id="4">
                         </v-text-field>
-                        <v-text-field v-model="signUpFormData.password" @focus="handleFocus" @blur="handleBlur"
-                            @keyup.enter="handleKeyUp" density="compact" variant="outlined" rounded
+                        <v-text-field v-model="signUpFormData.password" :rules="passwordRules" @focus="handleFocus"
+                            @blur="handleBlur" @keyup.enter="handleKeyUp" density="compact" variant="outlined" rounded
                             hint="대문자, 숫자, 특수문자 포함 6~12자리" :type="showPassword ? 'text' : 'password'"
                             :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                             @click:append-inner="showPassword = !showPassword" label="Password" class="my-2" id="5">
                         </v-text-field>
-                        <v-autocomplete v-model="signUpFormData.companyName" :items="companyList" @focus="handleFocus"
-                            @blur="handleBlur" @keyup.enter="handleKeyUp" density="compact" variant="outlined" rounded
-                            placeholder="검색어를 넣으세요" label="소속회사" class="my-2" id="6">
+                        <v-autocomplete v-model="signUpFormData.companyName" :items="companyList" :rules="companyRules"
+                            @focus="handleFocus" @blur="handleBlur" @keyup.enter="handleKeyUp" density="compact"
+                            variant="outlined" rounded placeholder="검색어를 넣으세요" label="소속회사" class="my-2" id="6">
                             <template v-slot:prepend-item>
                                 <span class="ml-3 text-caption">소속 회사가 없으면 CM단에 등록 요청</span>
                                 <v-divider />
                             </template>
                         </v-autocomplete>
                         <v-text-field v-model="signUpFormData.projectCode" @focus="handleFocus" @blur="handleBlur"
-                            @keyup.enter="handleKeyUp" density="compact" variant="outlined" rounded
-                            hint="현장코드는 CM단에 문의하세요" append-inner-icon="mdi-numeric" label="현장코드" class="my-2" id="7">
+                            @keyup.enter="handleKeyUp" density="compact" variant="outlined" rounded hint="현장코드는 CM단에 문의하세요"
+                            append-inner-icon="mdi-numeric" label="현장코드" class="my-2" id="7">
                         </v-text-field>
                     </v-carousel-item>
                 </v-carousel>
@@ -104,8 +105,28 @@ const companyList = [
     'RC B사'
 ]
 
+const nameRules = [
+    (v: string) => !!v || 'Name is required',
+    (v: string) => {
+        const invalidCharacter = v.match(/[^a-zA-Z가-힣]/);
+        return !invalidCharacter || `Invalid character '${invalidCharacter[0]}' in the ID`;
+    },
+    (v: string) => (v && v.length <= 20) || 'ID must be less than 20 characters'
+]
+const mobileRules = [
+    (v: string) => !!v || 'Mobile is required',
+    (v: string) => {
+        const mobileNumber = v.replace(/-/g, "")
+        return !isNaN(Number(mobileNumber)) || '잘못된 입력입니다';
+    }
+]
 const idRules = [
     (v: string) => !!v || 'ID is required',
+    (v: string) => {
+        const invalidCharacter = v.match(/[^a-zA-Z0-9_.-]/);
+        console.log(invalidCharacter)
+        return !invalidCharacter || `Invalid character '${invalidCharacter[0]}' in the ID`;
+    },
     (v: string) => (v && v.length <= 20) || 'ID must be less than 20 characters'
 ]
 
@@ -113,7 +134,23 @@ const emailRules = [
     (v: string) => !!v || 'Email is required',
     (v: string) => (/.+@.+\..+/.test(v)) || 'E-mail must be valid.'
 ]
-
+const passwordRules = [
+    (v: string) => !!v || 'Password is required',
+    (v: string) => (v && /\d/.test(v)) || 'must include at least one number',
+    (v: string) => (v && /[a-z]/.test(v)) || 'must include at least one lowercase letter',
+    (v: string) => (v && /[A-Z]/.test(v)) || 'must include at least one uppercase letter',
+    (v: string) => (v && /[!@#$%^&*()><?/[\]{}]/.test(v)) || 'Password must include at least one special character',
+    (v: string) => (v && v.length >= 6 && v.length <= 10) || 'Password must be 6-10 characters',
+]
+const companyRules = [
+    (v: string) => !!v || 'Company Name is required',
+    // list는 name fileld input이 변경되면 event에 맞춰 load
+    // (v: string) => (companyList.includes(v)) || 'Select a company name in the list',
+]
+const projectCodeRules = [
+    (v: string) => !!v || 'Company Name is required',
+    //validation button click 시 입력된 code가 db에 있는 지 check
+]
 function handleFocus(event: Event) {
     if (!mobile.value) return
     const targetElement = event.target as HTMLElement

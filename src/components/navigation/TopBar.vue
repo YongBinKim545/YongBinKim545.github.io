@@ -2,7 +2,7 @@
     <!-- <v-app-bar flat :order="mobile ? -1 : 0"> -->
     <v-app-bar flat order="-1">
         <label for="nav-icon" v-if="mobile">
-            <div class="nav-icon-box-mobile ml-5" :class="drawer ? 'active' : ''">
+            <div class="nav-icon-box-mobile ml-5" :class="drawer ? 'expanded' : ''">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -14,7 +14,7 @@
             </div>
         </label> -->
         <label for="nav-icon" v-else>
-            <div class="nav-icon-box-desktop ml-5" :class="drawer ? 'active' : ''">
+            <div class="nav-icon-box-desktop ml-5" :class="drawer ? 'expanded' : ''">
                 <span></span>
                 <span></span>
             </div>
@@ -27,7 +27,7 @@
             <template v-slot:activator="{ props }">
                 <v-btn class="text-none mr-3" icon v-bind="props">
                     <v-badge color="error" dot>
-                        <v-icon size="large" color="primary">mdi-bell-ring-outline</v-icon>
+                        <v-icon size="large" color="primary" :class="1 ? 'bell-ringing':''">mdi-bell-ring-outline</v-icon>
                     </v-badge>
                 </v-btn>
             </template>
@@ -44,6 +44,8 @@
             </template>
             <span>Searching For Team Members</span>
         </v-tooltip>
+        <div class="appbar-transition left" :class="drawer ? 'expanded' : ''"></div>
+        <div class="appbar-transition right" :class="drawer ? 'expanded' : ''"></div>
     </v-app-bar>
 </template>
 
@@ -77,7 +79,7 @@ const toggleDrawer = (): void => {
         transition: 0.7s ease;
     }
 
-    &.active {
+    &.expanded {
         span:first-child {
             transform: translateY(7px) rotate(135deg);
             transition-delay: 0.2s;
@@ -115,7 +117,7 @@ const toggleDrawer = (): void => {
         transition: 0.7s ease;
     }
 
-    &.active {
+    &.expanded {
         span {
             transform: scaleX(-1) rotate(45deg);
         }
@@ -123,21 +125,61 @@ const toggleDrawer = (): void => {
 
 }
 
+.appbar-transition {
+    position: absolute;
+    width: 50px;
+    height: 100%;
+    transition: 1s ease-out;
+    &.left {
+        left: -200px;
+        border-bottom: 5px solid rgb(var(--v-theme-primary));
+        &.expanded {
+            left: calc(50vw);
+            transform:translate(30px,0px);
+            border-bottom: 5px solid transparent;
+        }
+    }
+
+    &.right {
+        left: calc(100vw + 100px);
+        border-bottom: 5px solid rgb(var(--v-theme-warning));
+        &.expanded {
+            left: calc(50vw);
+            transform:translate(-30px,0px);
+            border-bottom: 5px solid transparent;
+        }
+    }
+}
+
+.bell-ringing {
+    animation: ring 3s infinite;
+}
 
 
+@keyframes ring {
+  0% { transform: rotate(0); }
+  1% { transform: rotate(20deg); }
+  3% { transform: rotate(-24deg); }
+  5% { transform: rotate(24deg); }
+  7% { transform: rotate(-22deg); }
+  9% { transform: rotate(20deg); }
+  11% { transform: rotate(-18deg); }
+  13% { transform: rotate(16deg); }
+  15% { transform: rotate(-14deg); }
+  17% { transform: rotate(12deg); }
+  19% { transform: rotate(-10deg); }
+  21% { transform: rotate(8deg); }
+  23% { transform: rotate(-6deg); }
+  25% { transform: rotate(4deg); }
+  27% { transform: rotate(-2deg); }
+  29% { transform: rotate(0deg); }
+  31% { transform: rotate(-1deg); }
+  33% { transform: rotate(1deg); }
+  35% { transform: rotate(-1deg); }
+  37% { transform: rotate(1deg); }
+  39% { transform: rotate(-1deg); }
+  41% { transform: rotate(1deg); }
 
-
-
-
-
-
-
-// .expand-icon {
-//     cursor: pointer;
-//     transition: transform .6s ease;
-
-//     &.expanded {
-//         transform: rotate(180deg);
-//     }
-// }
+  100% { transform: rotate(0); }
+}
 </style>

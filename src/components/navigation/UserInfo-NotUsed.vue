@@ -9,7 +9,7 @@
                 </template>
             </v-toolbar> -->
     <v-card class="pa-2 ma-2 text-center">
-        <div class="d-flex justify-space-around align-center">
+        <div class="d-flex justify-space-around">
             <v-card class="d-flex flex-column" flat>
                 <v-tooltip location="right">
                     <template v-slot:activator="{ props }">
@@ -43,13 +43,16 @@
                 </v-tooltip>
             </v-card>
             <div>
-                <div class="d-flex justify-center align-center" style="cursor:pointer" @click="userInfoDialog = true">
-                    <div class="avatar-background">
-                    </div>
-                    <v-avatar size="x-large" style="cursor:pointer">
-                        <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
-                    </v-avatar>
-                </div>
+                <v-tooltip location="right">
+                    <template v-slot:activator="{ props }">
+                        <v-btn size="large" class="avatar-background" icon v-bind="props" flat>
+                            <v-avatar size="large" class="avatar-image">
+                                <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
+                            </v-avatar>
+                        </v-btn>
+                    </template>
+                    <span>마이 페이지 링크</span>
+                </v-tooltip>
                 <div class="mt-2">
                     <span class="text-h6">성이름</span>
                 </div>
@@ -66,12 +69,8 @@
         </div>
     </v-card>
 
-    <dialog-for-project-list v-if="myProjectDialog" title="MY PROJECTs" :activate="myProjectDialog"
-        @on-close="myProjectDialog = false" />
-    <dialog-for-project-list v-if="authRequestDialog" title="프로젝트 권한 요청" :activate="authRequestDialog"
-        @on-close="authRequestDialog = false" />
-        <dialog-for-project-list v-if="userInfoDialog" title="사용자 정보" :activate="userInfoDialog"
-        @on-close="userInfoDialog = false" />
+    <dialog-for-project-list v-if="myProjectDialog" title="MY PROJECTs" :activate="myProjectDialog" @on-close="myProjectDialog=false" />
+    <dialog-for-project-list v-if="authRequestDialog" title="프로젝트 권한 요청" :activate="authRequestDialog"  @on-close="authRequestDialog=false"/>
 </template>
 
 <script lang="ts" setup>
@@ -83,48 +82,40 @@ import { ref, defineAsyncComponent } from 'vue'
 // const toggleDrawer = (): void => {
 //     emit('toggleDrawer')
 // }
-const DialogForProjectList = defineAsyncComponent(() => import('@/components/modal/ModalProjectList.vue'))
+const DialogForProjectList =  defineAsyncComponent(() => import('@/components/modal/ModalProjectList.vue'))
 const { mobile } = useDisplay()
 const myProjectDialog = ref(false)
 const authRequestDialog = ref(false)
-const userInfoDialog = ref(false)
 
 </script>
 
 <style lang="scss" scoped>
 .avatar-background {
-    position: absolute;
-    border-radius: 50%;
-    height:63px;
-    width: 63px;
-    background: rgba(0,0,0,.5);
-    overflow:hidden;
-}
-.avatar-background::before {
-    content:'';
-    position:absolute;
-    inset: -5px 10px;
-    background: linear-gradient(45deg, #00ccff, #d400d4);
-    // background: linear-gradient(45deg, rgb(var(--v-theme-primary)), rgb(var(--v-theme-warning)));
-    transition: 0.5s;
-    animation: avatarBorder 5s linear infinite;
-}
-.avatar-background:hover::before {
-    inset: -5px 0px;
-}
-.avatar-background::after {
-    content:'';
-    position:absolute;
-    inset: 3px;
-    background: transparent;
-    border-radius: 50%;
-    z-index:1;
+    background: linear-gradient(0deg, #1867c0, #ffffff 30%);
+    animation: rotateCircle 10s linear infinite;
 }
 
-@keyframes avatarBorder {
+.avatar-image {
+    animation: rotateCircle 10s linear infinite reverse;
+}
+
+@keyframes rotateCircle {
     0% {
         transform: rotate(0);
     }
+
+    25% {
+        transform: rotate(90deg);
+    }
+
+    50% {
+        transform: rotate(180deg);
+    }
+
+    75% {
+        transform: rotate(270deg);
+    }
+
     100% {
         transform: rotate(360deg);
     }
