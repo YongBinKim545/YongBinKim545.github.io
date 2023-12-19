@@ -5,42 +5,46 @@
                 <v-carousel v-model="currentSlide" hide-delimiter-background :show-arrows="false" hide-delimiters
                     height="100%">
                     <v-carousel-item :value="1">
-                        <v-text-field v-model="signUpFormData.userName" :rules="nameRules" @focus="handleFocus"
-                            @blur="handleBlur" @keyup.enter="handleKeyUp" density="compact" variant="outlined" rounded
-                            append-inner-icon="mdi-account" label="Name" class="my-2" id="1">
+                        <v-text-field v-model="signUpFormData.lastName" :rules="nameRules" @focus="handleFocus"
+                            @blur="handleBlur" @keyup.enter="handleKeyUp" density="compact" variant="outlined" rounded placeholder="성"
+                            append-inner-icon="mdi-alphabetical-variant" label="LastName" class="my-2" id="1">
+                        </v-text-field>
+                        <v-text-field v-model="signUpFormData.firstName" :rules="nameRules" @focus="handleFocus"
+                            @blur="handleBlur" @keyup.enter="handleKeyUp" density="compact" variant="outlined" rounded placeholder="이름"
+                            append-inner-icon="mdi-alphabetical-variant" label="FirstName" class="my-2" id="2">
                         </v-text-field>
                         <v-text-field v-model="signUpFormData.userMobile" :rules="mobileRules" @focus="handleFocus"
                             @blur="handleBlur" @keyup.enter="handleKeyUp" @input="formatMobileNumber" density="compact"
                             variant="outlined" rounded hint="숫자만 입력하세요" append-inner-icon="mdi-cellphone" label="Mobile"
-                            class="my-2" id="2">
+                            class="my-2" id="3">
                         </v-text-field>
                         <v-text-field v-model="signUpFormData.userEmail" :rules="emailRules" @focus="handleFocus"
                             @blur="handleBlur" @keyup.enter="handleKeyUp" density="compact" variant="outlined" rounded
-                            append-inner-icon="mdi-email-outline" label="Email" class="my-2" id="3">
+                            append-inner-icon="mdi-email-outline" label="Email" class="my-2" id="4">
                         </v-text-field>
                     </v-carousel-item>
                     <v-carousel-item :value=2>
                         <v-text-field v-model="signUpFormData.userId" :rules="idRules" @focus="handleFocus"
                             @blur="handleBlur" @keyup.enter="handleKeyUp" density="compact" variant="outlined" rounded
-                            append-inner-icon="mdi-account" label="ID" class="my-2" id="4">
+                            append-inner-icon="mdi-account" label="ID" class="my-2" id="5">
                         </v-text-field>
                         <v-text-field v-model="signUpFormData.password" :rules="passwordRules" @focus="handleFocus"
                             @blur="handleBlur" @keyup.enter="handleKeyUp" density="compact" variant="outlined" rounded
                             hint="대문자, 숫자, 특수문자 포함 6~12자리" :type="showPassword ? 'text' : 'password'"
                             :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                            @click:append-inner="showPassword = !showPassword" label="Password" class="my-2" id="5">
+                            @click:append-inner="showPassword = !showPassword" label="Password" class="my-2" id="6">
                         </v-text-field>
                         <v-autocomplete v-model="signUpFormData.companyName" :items="companyList" :rules="companyRules"
                             @focus="handleFocus" @blur="handleBlur" @keyup.enter="handleKeyUp" density="compact"
-                            variant="outlined" rounded placeholder="검색어를 넣으세요" label="소속회사" class="my-2" id="6">
+                            variant="outlined" rounded placeholder="검색어를 넣으세요" label="소속회사" class="my-2" id="7">
                             <template v-slot:prepend-item>
                                 <span class="ml-3 text-caption">소속 회사가 없으면 CM단에 등록 요청</span>
                                 <v-divider />
                             </template>
                         </v-autocomplete>
-                        <v-text-field v-model="signUpFormData.projectCode" @focus="handleFocus" @blur="handleBlur"
+                        <v-text-field v-model="signUpFormData.projectCode" @focus="handleFocus" @blur="handleBlur" :rules="projectCodeRules"
                             @keyup.enter="handleKeyUp" density="compact" variant="outlined" rounded hint="현장코드는 CM단에 문의하세요"
-                            append-inner-icon="mdi-numeric" label="현장코드" class="my-2" id="7">
+                            append-inner-icon="mdi-numeric" label="현장코드" class="my-2" id="8">
                         </v-text-field>
                     </v-carousel-item>
                 </v-carousel>
@@ -54,7 +58,7 @@
                     <div class="d-flex justify-space-between">
                         <v-btn color="success" width="100" :disabled="currentSlide < 2" @click="validate">Validate</v-btn>
                         <!--성공 시 success color임 -->
-                        <v-btn type="submit" color="primary" width="100" :disabled="currentSlide < 2"
+                        <v-btn type="submit" color="primary" width="100" :disabled="!isValid"
                             @click="submit">submit</v-btn>
                     </div>
                 </div>
@@ -69,7 +73,8 @@ import { useDisplay } from 'vuetify'
 const { mobile } = useDisplay()
 
 interface signUpFormType {
-    userName: null | string,
+    firstName: null | string,
+    lastName: null | string,
     userMobile: null | string,
     userEmail: null | string,
     userId: null | string,
@@ -78,7 +83,8 @@ interface signUpFormType {
     projectCode: null | string
 }
 const signUpFormData: signUpFormType = reactive({
-    userName: null,
+    firstName: null,
+    lastName: null,
     userMobile: null,
     userEmail: null,
     userId: null,
@@ -94,6 +100,7 @@ const formRef = ref<any | null>(null)
 const showPassword = ref(false)
 const focusStatus = ref(false)
 const currentSlide = ref(1)
+const isValid = ref(false)
 const companyList = [
     'GS 건설',
     'XI C&A',
@@ -124,7 +131,6 @@ const idRules = [
     (v: string) => !!v || 'ID is required',
     (v: string) => {
         const invalidCharacter = v.match(/[^a-zA-Z0-9_.-]/);
-        console.log(invalidCharacter)
         return !invalidCharacter || `Invalid character '${invalidCharacter[0]}' in the ID`;
     },
     (v: string) => (v && v.length <= 20) || 'ID must be less than 20 characters'
@@ -148,14 +154,14 @@ const companyRules = [
     // (v: string) => (companyList.includes(v)) || 'Select a company name in the list',
 ]
 const projectCodeRules = [
-    (v: string) => !!v || 'Company Name is required',
+    (v: string) => !!v || 'Project Code is required',
     //validation button click 시 입력된 code가 db에 있는 지 check
 ]
 function handleFocus(event: Event) {
     if (!mobile.value) return
     const targetElement = event.target as HTMLElement
     const targetElementID = Number(targetElement.id)
-    if (targetElementID === 1 || targetElementID === 4) return
+    if (targetElementID === 1 || targetElementID === 5) return
     if (formContainer.value === null) return
     formContainer.value.style.paddingBottom = 500 + 'px'
     //DOM 직접 제어 부분 좀 재검토 필요... 내용을 바꾼 건 아니고 스크롤만 하는 거니 괜찮을 수도...
@@ -181,11 +187,11 @@ function handleBlur() {
 function handleKeyUp(event: Event) {
     const targetElement = event.target as HTMLElement
     const targetElementID = Number(targetElement.id)
-    if (targetElementID === 3) {
+    if (targetElementID === 4) {
         currentSlide.value = 2
         return
     }
-    if (targetElementID === 7) {
+    if (targetElementID === 8) {
         targetElement.blur()
         return
     }
@@ -227,7 +233,7 @@ const validate = async () => {
     const { valid } = await formRef.value?.validate()
     if (valid) {
         // Form 입력값 유효성 검사 Pass -> axios로 서버에 중복 (ID, Email) 확인, 데이터가 있는 지 확인 (현장 코드) 후 최종 Validation 완료
-        alert('submit 가능 상태로 바꿈') // 성공 시
+        isValid.value = true
         //실패 시 실패한 위치로 focus 이동
     } else {
         // Form 입력값 유효성 검사 fail 시 (Server에 Validation 요청하지 않음)
@@ -236,6 +242,7 @@ const validate = async () => {
 }
 function submit() {
     console.log(signUpFormData)
+    alert('입력 값은 Console 참고')
 }
 
 </script>

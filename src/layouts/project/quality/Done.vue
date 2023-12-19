@@ -3,14 +3,18 @@
         <item-header :contentsItem=props.contentItem filter-result></item-header>
         <v-card height="67vh" class="mx-2 mt-2" flat>
             <v-toolbar color="transparent">
-                <single-h-bar :datasets="datasets1" :title="['적용현황']" :height="60" v-show="!searchFocus || !mobile" />
-                <single-h-bar :datasets="datasets2" :title="['완료현황']" :height="60" v-show="!searchFocus || !mobile" />
+                <div class="d-flex justify-space-between" style="max-width: 92%;" v-if ="!searchFocus || !mobile">
+                    <single-h-bar :datasets="datasets1" :title="['적용현황']" :height="60" />
+                    <single-h-bar :datasets="datasets2" :title="['완료현황']" :height="60" />
+                </div>
                 <v-spacer />
-                <inline-search-bar @update="(searchKeyword) => searchTodo = searchKeyword" @focused="searchFocus=true" @blured="searchFocus=false"/>
+                <inline-search-bar @update="(searchKeyword) => searchTodo = searchKeyword" @focused="searchFocus = true"
+                    @blured="searchFocus = false" />
             </v-toolbar>
             <kanban-table :search="searchTodo" :headers="headers" :data="works" @on-click="(item) => showDialog(item)" />
         </v-card>
-        <dialog-for-edit title="Done Details" v-if="dialogActivate" :initialValue="selectedItem" :activate="dialogActivate" @on-close="closeDialog" />
+        <dialog-for-edit title="Done Details" v-if="dialogActivate" :initialValue="selectedItem" :activate="dialogActivate"
+            @on-close="closeDialog" />
     </div>
 </template>
 
@@ -34,7 +38,7 @@ const searchFocus = ref()
 const store = todoItemStore()
 const headers = computed(() => store.getHeader())
 const works = computed(() => store.getDone() || [])
-const initialItem:DataT = {
+const initialItem: DataT = {
     name: 'name',
     stage: 'todo'
 }

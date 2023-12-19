@@ -10,14 +10,18 @@
         <v-card height="67vh" class="mx-2 mt-2" flat>
             <small>Note: 주기적인 항목은 반복해서 Todo에 추가</small>
             <v-toolbar color="transparent">
-                <single-h-bar :datasets="datasets1" :title="['담당자 지정 현황']" :height="60" v-show="!searchFocus || !mobile" />
-                <single-h-bar :datasets="datasets2" :title="['Item 유형 분류']" :height="60" v-show="!searchFocus || !mobile" />
+                <div class="d-flex justify-space-between" style="max-width: 92%;" v-if="!searchFocus || !mobile">
+                    <single-h-bar :datasets="datasets1" :title="['담당자 지정 현황']" :height="60" />
+                    <single-h-bar :datasets="datasets2" :title="['Item 유형 분류']" :height="60" />
+                </div>
                 <v-spacer />
-                <inline-search-bar @update="(searchKeyword) => searchTodo = searchKeyword" @focused="searchFocus=true" @blured="searchFocus=false"/>
+                <inline-search-bar @update="(searchKeyword) => searchTodo = searchKeyword" @focused="searchFocus = true"
+                    @blured="searchFocus = false" />
             </v-toolbar>
             <kanban-table :search="searchTodo" :headers="headers" :data="works" @on-click="(item) => showDialog(item)" />
         </v-card>
-        <dialog-for-edit title="To-Do Details" v-if="dialogActivate" :initialValue="selectedItem" :activate="dialogActivate" @on-close="closeDialog" />
+        <dialog-for-edit title="To-Do Details" v-if="dialogActivate" :initialValue="selectedItem" :activate="dialogActivate"
+            @on-close="closeDialog" />
     </div>
 </template>
 
@@ -33,7 +37,7 @@ import { useDisplay } from 'vuetify'
 // 세부 항목 제거 후 재 삽입 시 순서 바뀌는 부분 개선 필요 (selected를 key, vlaue-true or false로 변경)
 // 데이터가 없는 경우 차트 대신 Message 보이는 기능 구현
 
-const DialogForEdit =  defineAsyncComponent(() => import('@/components/modal/ModalTodo.vue'))
+const DialogForEdit = defineAsyncComponent(() => import('@/components/modal/ModalTodo.vue'))
 const { mobile } = useDisplay()
 const props = defineProps<{ contentItem: ContentsItem }>()
 const searchTodo = ref()
@@ -41,7 +45,7 @@ const searchFocus = ref()
 const store = todoItemStore()
 const headers = computed(() => store.getHeader())
 const works = computed(() => store.getTodo() || [])
-const initialItem:DataT = {
+const initialItem: DataT = {
     name: 'name',
     stage: 'todo'
 }
@@ -52,7 +56,7 @@ function showDialog(item: DataT | null) {
     if (item !== null) {
         selectedItem.value = item
     } else {
-       selectedItem.value = initialItem
+        selectedItem.value = initialItem
     }
 }
 function closeDialog() {
